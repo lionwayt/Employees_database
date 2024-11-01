@@ -5,21 +5,26 @@ import bcrypt from 'bcrypt'
 import multer from "multer"
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) =>{
-        cb(null)
+    destination: (req, file, cb) => {
+        cb(null, "public/uploads")
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.orginalname))
+        cb(null, Date.now() + path.extname(file.originalname))
     }
 })
+
  const upload = multer({storage: storage})
 
 const addEmployee = async (req, res) => {
     try {
+
     const {
-      
         employeeId,
         dob,
+        email,
+        name,
+        role,
+        password,
         address,
         phone,
         position,
@@ -35,13 +40,12 @@ const addEmployee = async (req, res) => {
         bankName,
         accountName,
         accountNumber,
-        Salary,
-        createAt,
-        updatedAt,
-    
+        salary,
+
 } = req.body;
 
 const user = await User.findOne({email})
+
 if(user) {
     return res.status(400).json({success: false, error: "user already registered"});
 }
@@ -53,6 +57,7 @@ const newUser = new User({
     email,
     password: hashPassword, 
     role,
+    profileImage: req.file ? req.file.filename : ""
 })
 const savedUser = await newUser.save()
 
@@ -75,32 +80,32 @@ const newEmployee = new Employee({
     bankName,
     accountName,
     accountNumber,
-    Salary,
-    createAt,
-    updatedAt,
-})
+    salary
+   
+});
 
 await newEmployee.save()
-return res.status(200).json({success: true, message: "employee created"})
+return res.status(200).json({success: true,  message: "employee created"})
+
 } catch(error) {
-  console.log(error)
+    console.log(error.message)
     return res.status(500).json({success: false, error: "server error in adding employee"})
 
 }}
 const getEmployees = async (req, res) => {
     try {
-        const employees = await Employee.find().populate('userId', {password: 0}).populate("employee")
+        const employees = await Employee.find().populate('userId', {password: 0}).populate("department")
         return res.status(200).json({success: true, employees})
-    } catch (error){
-        return res.status(500).json({success: false, error: "get employee server error"})
+    } catch (error) {
+        return res.status(500).json({success: false, error: " server error in getting employee"})
     }
-
 }
 
 const getEmployee = async (req, res) => {
     const {id} = req.params;
     try {
-        const employee = await Employee.findById({_id: id}).populate('userId', {password: 0}).populate("employee")
+        
+        const employee = await Employee.findById({_id: id}).populate('userId', {password: 0}).populate("department")
         return res.status(200).json({success: true, employee})
     } catch (error){
         return res.status(500).json({success: false, error: "get employee server error"})

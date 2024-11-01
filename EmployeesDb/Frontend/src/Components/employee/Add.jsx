@@ -1,12 +1,12 @@
 import  { useEffect, useState } from 'react'
-import { fetchDepartments } from '../utils/EmployeeHelper'
+import { fetchDepartments } from '../utils/EmployeeHelper.jsx'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
 const Add = () => {
     const [departments, setDepartments] = useState([]);
-    const [formData, setFormData] = useState({}) 
+    const [formData, setFormData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,11 +20,11 @@ const Add = () => {
     }, []);
 
     const handleInputChange = (e) => {
-        const {name, value, phone} = e.target
-        if(name === phone){
-            setFormData((prevData) => ({...prevData, [name]: phone}));
+        const { name, value, files } = e.target;
+        if (name === "image"){
+            setFormData((prevData) => ({ ...prevData, [name]: files[0] }));
         } else {
-            setFormData((prevData) => ({...prevData, [name]: value}));
+            setFormData((prevData) => ({ ...prevData, [name]: value }));
         }
     };
     
@@ -39,7 +39,7 @@ const Add = () => {
   
       try {
         const response = await axios.post(
-          ' http://localhost:3000/api/employee/add',
+          "http://localhost:3000/api/employee/add",
            formDataObj,
           {
             headers: {
@@ -47,9 +47,11 @@ const Add = () => {
             },
           }
         );
+
         if (response.data.success) {
-          navigate("/hr_dashboard/employees")
+          navigate("/hr_dashboard/employees");
         }
+
       } catch (error) {
         if (error.response && !error.response.data.success) {
           alert(error.response.data.error);
@@ -70,12 +72,12 @@ const Add = () => {
             <legend className="text-lg font-medium text-maryOrange">Personal Information</legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <label htmlFor='name'  className="block text-sm font-medium text-gray-700">Full Name</label>
+                <label className="block text-sm font-medium text-gray-700">Full Name</label>
                 <input
                   type="text"
                   name="name"
                   required
-                 
+                 placeholder="Insert name"
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -159,7 +161,7 @@ const Add = () => {
               </div>
               <div>
                 <label htmlFor='department' className="block text-sm font-medium text-gray-700">Department</label>
-                <select name="department" id="department" className='mt-1 p-2 block w-full border '
+                <select name="department"  className='mt-1 p-2 block w-full border '
                   onChange={handleInputChange }>
                     
                     <option value="">Select Department</option>
@@ -231,7 +233,7 @@ const Add = () => {
             <legend className="text-lg font-medium text-maryOrange">Emergency Contact Information</legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <label htmlFor='emergencyContactName' className="block text-sm font-medium text-gray-700">Name</label>
+                <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
                
@@ -243,11 +245,11 @@ const Add = () => {
                 />
               </div>
               <div>
-                <label htmlFor='emergencyRelationship' className="block text-sm font-medium text-gray-700">Relationship</label>
+                <label  className="block text-sm font-medium text-gray-700">Relationship</label>
                 <input
                   type="text"
              
-                  name="emergencyRelationship"
+                  name="emergencyContactRelationship"
                   required
                  
                   onChange={handleInputChange}
@@ -255,11 +257,11 @@ const Add = () => {
                 />
               </div>
               <div>
-                <label htmlFor='emergencyPhone'  className="block text-sm font-medium text-gray-700">Phone Number</label>
+                <label  className="block text-sm font-medium text-gray-700">Phone Number</label>
                 <input
                   type="tel"
               
-                  name="emergencyPhone"
+                  name="emergencyContactPhone"
                   required
                   
                   onChange={handleInputChange}
@@ -267,11 +269,11 @@ const Add = () => {
                 />
               </div>
               <div>
-                <label htmlFor='emergencyAddress' className="block text-sm font-medium text-gray-700">Address</label>
+                <label className="block text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
         
-                  name="emergencyAddress"
+                  name="emergencyContactAddress"
                   required
                   
                   onChange={handleInputChange}
@@ -286,7 +288,7 @@ const Add = () => {
             <legend className="text-lg font-medium text-maryOrange">Bank Information</legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <label htmlFor='bankName' className="block text-sm font-medium text-gray-700">Bank Name</label>
+                <label  className="block text-sm font-medium text-gray-700">Bank Name</label>
                 <input
                   type="text"
                 
@@ -343,6 +345,19 @@ const Add = () => {
               </div>
 
               <div>
+                <label  className='block text-sm font-medium text-gray-700'>
+                    Upload Image
+                </label>
+                <input type="file" 
+                name='image'
+                placeholder='Upload Image'
+                onChange={handleInputChange}
+                accept='image/*'
+                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
+                required/>
+              </div>
+
+              <div>
                 <label htmlFor='role' className='block text-sm font-medium text-gray-700'>
                     Role
                 </label>
@@ -355,7 +370,7 @@ const Add = () => {
                     <option value="hr">Hr</option>
                     <option value="employee">Employee</option>
                     <option value="projectCo">Project Coordinator</option>
-                    <option value="executiveDi">Executive Director</option>
+                    <option value="executiveDir">Executive Director</option>
                     </select>
               </div>
             </div>

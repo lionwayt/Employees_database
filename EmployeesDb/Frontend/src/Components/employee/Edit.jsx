@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react'
 import axios from 'axios';
-import { fetchDepartments} from '../utils/EmployeeHelper';
+import { fetchDepartments} from '../utils/EmployeeHelper.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Edit = () => {

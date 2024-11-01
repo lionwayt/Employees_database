@@ -21,7 +21,7 @@ const List = () => {
                 },
               }
             );
-            
+            console.log(responnse.data)
             if (responnse.data.success) {
               let no = 1;
            
@@ -32,6 +32,8 @@ const List = () => {
                 no: no++,
                 dep_name: emp.department.dep_name,
                 name: emp.userId.name,
+                dob: new Date(emp.dob).toDateString(),
+                profileImage:<img src={`http://localhost:3000/${emp.userId.profileImage}`} /> ,
                 action: (<EmployeeBtn 
                           Id={emp._id} /> ),
               }));
@@ -57,14 +59,14 @@ const List = () => {
         setFilteredEmployee(records)
       }
   return (
+    <>
+    {empLoading ?
+    <div>Loading ...</div> 
+  :
   
  <div className="p-6">
       <div className="text-center">
-        {/* Title */}
-        <h1 className="text-2xl font-bold mb-6 text-maryBlue">
-          {" "}
-          Manage Employee
-        </h1>
+        <h1 className="text-2xl font-bold  text-maryBlue"> Manage Employee</h1>
       </div>
       <div className="flex justify-between items-center">
         <input
@@ -84,6 +86,7 @@ const List = () => {
         <DataTable columns={columns} data={filteredEmployee} pagination />
       </div>
     </div>
+    }</>
  
   );
 };

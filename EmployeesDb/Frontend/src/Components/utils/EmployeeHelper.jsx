@@ -16,8 +16,15 @@ export const columns = [
     },
 
     {
+      name: "Image",
+      selector: (row) => row.profileImage,
+      width: "90px"
+
+  },
+
+    {
         name: "Department",
-        selector: (row) => row.department,
+        selector: (row) => row.dep_name,
         width: "120px"
     },
     {
@@ -59,19 +66,23 @@ export const fetchDepartments = async () => {
             <div className="flex space-x-3">
                 <button className="px-3 py-1 bg-maryBlue text-white"
                 onClick={() => navigate(`/hr_dashboard/employees/${Id}`)}
-                >View</button>
+                >View
+                </button>
 
                 <button className="px-3 py-1 bg-green-600 text-white"
                 onClick={() => navigate(`hr_dashboard/employees/edit/${Id}`)}
-                >Edit</button>
-
+                >Edit
+                </button>
+                
                 <button className="px-3 py-1 bg-yellow-600 text-white"
                 onClick={() => (Id)}
-                >Salary</button>
+                >Salary
+                </button>
                 
                 <button className="px-3 py-1 bg-red-600 text-white"
                 onClick={() => (Id)}
-                >Leave</button>
+                >Leave
+                </button>
             </div>
         )
     }

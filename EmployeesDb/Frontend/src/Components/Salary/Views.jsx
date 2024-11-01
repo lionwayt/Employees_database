@@ -1,6 +1,6 @@
 import React from 'react'
 
-const View = () => {
+const Views = () => {
   return (
     <div className='p-6'>
         <div className='text-center'>
@@ -13,4 +13,4 @@ const View = () => {
   )
 }
 
-export default View
+export default Views

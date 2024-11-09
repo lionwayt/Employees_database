@@ -6,9 +6,11 @@ import {FaBuilding,
         FaTachometerAlt,
         FaUser
       } from 'react-icons/fa'
+      import { useAuth } from '../Context/authContext'
 
 
 const Sidebar = () => {
+  const {user} = useAuth()
   return (
     <div className='bg-slate-400 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64'>
         <div className='bg-maryBlue h-20 flex items-center justify-center'>
@@ -17,8 +19,7 @@ const Sidebar = () => {
            
         </div>
         <div className='px-4'>
-            <NavLink 
-             to="/employee_dashboard"
+            <NavLink to="/employee_dashboard"
              className={({isActive}) => 
              `${isActive ? "bg-maryOrange" : ""
 
@@ -31,7 +32,7 @@ const Sidebar = () => {
              </NavLink>
 
             <NavLink 
-             to="/employee_dashboard/profile"
+             to={`/employee_dashboard/profile/${user._id}`}
              className={({isActive}) =>
                 `${isActive ? "bg-maryOrange" : ""
   
@@ -53,16 +54,6 @@ const Sidebar = () => {
                 <span>Leaves</span>
              </NavLink>
 
-            <NavLink to="/employee_dashboard/salary"
-            className={({isActive}) =>
-                `${isActive ? "bg-maryOrange" : ""
-  
-                } flex items-center space-x-4 block py-2.5 px-4 rounded`
-             }
-         >
-                <FaCalendarAlt/>
-                <span>Salary</span>
-             </NavLink>
 
              <NavLink to="/employee_dashboard/setting"
             className={({isActive}) =>

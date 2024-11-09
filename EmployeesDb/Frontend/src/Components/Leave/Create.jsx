@@ -1,26 +1,29 @@
-
-
 import axios from 'axios';
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Context/authContext.jsx';
 
 const Create = () => {
-  /*  const {user} = useAuth()
+ const {user} = useAuth()
     const [leave, setLeave]= useState({
         userId: user._id,
 
     })
+
+    const navigate = useNavigate()
+
     const handleChange = (e) => {
         const {name, value} = e.target
-        setLeave((prevState)=> ({...prevState, [name] : value}))
+        setLeave((prevState) => ({...prevState, [name] : value}))
     };
-    const navigate = useNavigate
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(
-                `http://localhost:5000/api/leave/add`,leave,
+            const response = await axios.post(
+                `http://localhost:3000/api/leave/add`, 
+                leave,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -28,27 +31,28 @@ const Create = () => {
                     },
                 }
             );
+
             if (response.data.success){
-               navigate('/employee-dashboard/leaves')
+               navigate('/employee_dashboard/leave')
             }
         } catch (error){
             if(error.response && !error.response.data.success){
                 alert(error.response.data.error);
             }
         }
-    } */
+    } 
 
   return (
     <div className='max-w-4x1 mx-auto mt-1= bg-white p-8 rounded-md shadow-md'>
         <h2 className='text-2x1 font-bold mb-6'> Request for Leave</h2>
-        <form onSubmit= ""/*{handleSubmit} */>
+        <form onSubmit= {handleSubmit}>
             <div className='flex flex-col space-y-4'> 
                 <div>
                     <label className='block text-sm font-medium text-gray-700'>
                         Leave Type
                     </label>
                     <select name="leaveType"
-                     onChange=""/*{handleSubmit} */
+                     onChange={handleChange} 
                      className='mt-1 p-2 block w-full border border-gray-300 rounded-md
                      required
                      '>
@@ -68,7 +72,7 @@ const Create = () => {
                 <input
                  type="date"
                  name="startDate"
-                 onChange=""/*{handleSubmit} */
+                 onChange={handleChange}
                  className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
                  required />
                  </div>
@@ -80,7 +84,7 @@ const Create = () => {
                     </label>
                     <input type="date"
                     name='endDate'
-                    onChange=""/*{handleSubmit} */
+                    onChange={handleChange}
                     className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
                     required />
                  </div>
@@ -93,7 +97,7 @@ const Create = () => {
                     <textarea 
                      name="reason" 
                      placeholder='Reason'
-                     onChange=""/*{handleSubmit} */
+                     onChange={handleChange} 
                      className='w-full border border-gray-300'></textarea>
                  </div>
 

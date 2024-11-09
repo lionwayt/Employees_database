@@ -4,9 +4,11 @@ import Card from '../card';
 import MyPie from '../chart';
 import MyLineChart from '../LineChart';
 import MyBarChart from '../BarChart';
-import EmployeeTable from '../EmployeeTable';
+
+
 
 const HrSummary = () => {
+
 
   const demographicData = [
     { name: 'Male', value: 300 },
@@ -52,12 +54,6 @@ const HrSummary = () => {
         <div className="flex-1 w-full mt-3">
           <MyBarChart data={leaveData} className="h-64 w-full" />
         </div>
-      </div>
-
-       {/* Employee and Attendance Records */}
-       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
-        <EmployeeTable />
-       
       </div>
     </div>
    

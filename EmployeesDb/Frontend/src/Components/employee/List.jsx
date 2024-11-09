@@ -11,13 +11,13 @@ const List = () => {
 
     useEffect(() => {
         const fetchEmployees = async () => {
-            setEmpLoading(true);
+            setEmpLoading(true)
           try {
             const responnse = await axios.get(
               "http://localhost:3000/api/employee",
-              {
+                {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,                 
                 },
               }
             );
@@ -26,14 +26,13 @@ const List = () => {
               let no = 1;
            
              
-              const data = await responnse.data.employees.map((emp) => (
-                {
+              const data = await responnse.data.employees.map((emp) => ({
                 _id: emp._id,
                 no: no++,
                 dep_name: emp.department.dep_name,
                 name: emp.userId.name,
                 dob: new Date(emp.dob).toDateString(),
-                profileImage:<img src={`http://localhost:3000/${emp.userId.profileImage}`} /> ,
+                profileImage: <img width={40} className="rounded-full" src={`http://localhost:3000/${emp.userId.profileImage}`} /> ,
                 action: (<EmployeeBtn 
                           Id={emp._id} /> ),
               }));

@@ -30,7 +30,7 @@ const Login = () => {
           navigate('/hr_dashboard')
 
         } else {
-          navigate ('/employee-dashboard')
+          navigate ('/employee_dashboard')
         }
       
        }

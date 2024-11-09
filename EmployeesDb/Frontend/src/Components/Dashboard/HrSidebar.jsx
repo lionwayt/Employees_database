@@ -42,7 +42,7 @@ const HrSidebar = () => {
                 <span>Department</span>
             </NavLink>
 
-            <NavLink to="/hr_dashboard/Salary"
+            <NavLink to="/hr_dashboard/branches"
             className={({isActive}) => `font-medium rounded-md py-2 px-5 transition duration-300 hover:bg-gradient-to-r from-maryBlue to-maryOrange
             ${isActive ? "bg-gradient-to-r from-maryBlue to-maryOrange text-white" :
                 "text-gray-800"} flex items-center space-x-4 block py-2.5 px-4 rounded`
@@ -50,7 +50,7 @@ const HrSidebar = () => {
           
            > 
                 <FaMoneyBill/>
-                <span>Salary</span>
+                <span>Branch</span>
             </NavLink>
 
             <NavLink to="/hr_dashboard/leave"

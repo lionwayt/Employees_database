@@ -28,6 +28,11 @@ export const columns = [
         width: "120px"
     },
     {
+      name: "Branch",
+      selector: (row) => row.dep_name,
+      width: "120px"
+  },
+    {
         name: "Action ",
         selector: (row) => row.action,
         center: true
@@ -58,6 +63,30 @@ export const fetchDepartments = async () => {
       return departments
     }; 
 
+    export const fetchBranches = async () => {
+      let branches
+          
+          try {
+            const responnse =  await axios.get(
+              'http://localhost:3000/api/branch',
+              
+               {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            })
+            if(responnse.data.success) {
+              branches = responnse.data.branches
+            }
+           } catch(error) {
+            if (error.response && !error.response.data.success) {
+              alert(error.response.data.error);
+           }
+        } 
+        return branches
+      }; 
+
+    // eslint-disable-next-line react/prop-types
     export const EmployeeBtn = ({Id}) => {
         const navigate = useNavigate();
     
@@ -70,14 +99,10 @@ export const fetchDepartments = async () => {
                 </button>
 
                 <button className="px-3 py-1 bg-green-600 text-white"
-                onClick={() => navigate(`hr_dashboard/employees/edit/${Id}`)}
+                onClick={() => navigate(`/hr_dashboard/employees/edit/${Id}`)}
                 >Edit
                 </button>
                 
-                <button className="px-3 py-1 bg-yellow-600 text-white"
-                onClick={() => (Id)}
-                >Salary
-                </button>
                 
                 <button className="px-3 py-1 bg-red-600 text-white"
                 onClick={() => (Id)}

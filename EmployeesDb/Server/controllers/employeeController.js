@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import bcrypt from 'bcrypt'
 import multer from "multer"
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public/uploads")
@@ -27,7 +28,7 @@ const addEmployee = async (req, res) => {
         password,
         address,
         phone,
-        position,
+        branch,
         department,
         startDate,
         employmentType,
@@ -67,7 +68,7 @@ const newEmployee = new Employee({
     dob,
     address,
     phone,
-    position,
+    branch,
     department,
     startDate,
     employmentType,
@@ -94,7 +95,7 @@ return res.status(200).json({success: true,  message: "employee created"})
 }}
 const getEmployees = async (req, res) => {
     try {
-        const employees = await Employee.find().populate('userId', {password: 0}).populate("department")
+        const employees = await Employee.find().populate('userId', {password: 0}).populate("department", "branch")
         return res.status(200).json({success: true, employees})
     } catch (error) {
         return res.status(500).json({success: false, error: " server error in getting employee"})
@@ -102,10 +103,17 @@ const getEmployees = async (req, res) => {
 }
 
 const getEmployee = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     try {
-        
-        const employee = await Employee.findById({_id: id}).populate('userId', {password: 0}).populate("department")
+        let employee;
+        employee = await Employee.findById({ _id: id })
+        .populate("userId", { password: 0 })
+        .populate("department", "branch");
+        if(!employee) {
+         employee = await Employee.findOne({ userId: id })
+        .populate("userId", { password: 0 })
+        .populate("department", "branch");
+        }
         return res.status(200).json({success: true, employee})
     } catch (error){
         return res.status(500).json({success: false, error: "get employee server error"})
@@ -129,7 +137,7 @@ const updateEmployee = async (req, res) => {
         }
 
         const user = await User.findById({_id: employee.userId})
-        if(!employee) {
+        if(!user) {
             return res.status(404)
             .json({success: false, error: "user not found"})
         }

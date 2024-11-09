@@ -6,21 +6,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 const Edit = () => {
     const [departments, setDepartments] = useState(null);
     const [employee, setEmployee] = useState({
-        name: '',
-        
+      name: ''
     });
     const navigate = useNavigate();
     const {id} = useParams()
 
-    useEffect(() => {
-        const getDepartments = async () => {
-            const departments = await fetchDepartments();
-            setDepartments(departments);
+  
 
-        };
-        getDepartments();
-     
-    }, []);
+    
 
     useEffect(() => {
         const fetchEmployee = async () => {
@@ -36,10 +29,10 @@ const Edit = () => {
           }
         );
         if (responnse.data.success) {
-           const employee = responnse.data.employee;
-          setEmployee((prev) => ({
-            ...prev, 
-            name: employee.userId.name,}));
+          const employee = responnse.data.employee;
+          setEmployee((prev) => ({ 
+            ...prev,
+             name: employee.userId.name}));
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -47,19 +40,33 @@ const Edit = () => {
         }
       }
     };
+
     fetchEmployee();
     }, []);
 
-    const handleInputChange = (e) => {
-        const {name, value} = e.target
-       
-            setEmployee((prevData) => ({...prevData, [name]: value}));
-        }
-    
-    
+    useEffect(() => {
+      const getDepartments = async () => {
+          const departments = await fetchDepartments();
+          setDepartments(departments);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+      };
+
+      getDepartments();
+   
+  }, []);
+
+    const handleInputChange = (e) => {
+      const { name, value} = e.target;
+    {
+      setEmployee((prevData) => ({ ...prevData, [name]: value }));
+      }
+  };
+  
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+     
 
        
       try {
@@ -89,7 +96,7 @@ const Edit = () => {
     <>{departments && employee ? (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-maryOrange">
-        <h2 className="text-lg font-semibold mb-4 text-maryBlue">Employee Registration</h2>
+        <h2 className="text-lg font-semibold mb-4 text-maryBlue">Edit Employee</h2>
         <form onSubmit={handleSubmit} className="space-y-8">
           
           {/* Personal Information Section */}
@@ -101,6 +108,7 @@ const Edit = () => {
                 <input
                   type="text"
                   name="name"
+                  value= {employee.name}
                   required
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
@@ -111,8 +119,7 @@ const Edit = () => {
                 <input
                   type="date"
                   name="dob"
-                  required
-                  
+                  required 
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -141,29 +148,8 @@ const Edit = () => {
                   placeholder="123-456-7890"
                 />
               </div>
-              <div>
-                <label htmlFor='email' className="block text-sm font-medium text-gray-700">Email Address</label>
-                <input
-                  type="email"
-                
-                  name="email"
-                  required
-                
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
-                />
-              </div>
-              <div>
-                <label htmlFor='employeeId' className='block text-sm font-medium text-gray-700'>
-                    Employee ID
-                </label>
-                <input type="text" 
-                name='employeeId'
-                onChange={handleInputChange}
-                placeholder='Employee ID'
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                required/>
-              </div>
+            
+            
             </div>
           </fieldset>
 
@@ -183,7 +169,7 @@ const Edit = () => {
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
               </div>
-              <div>
+              <div className='col-span-2'>
                 <label htmlFor='department' className="block text-sm font-medium text-gray-700">Department</label>
                 <select name="department" className='mt-1 p-2 block w-full border '
                   required>
@@ -390,7 +376,7 @@ const Edit = () => {
               type="submit"
               className="px-6 py-2 bg-maryBlue text-white font-medium text-sm rounded-md hover:bg-maryOrange focus:outline-none focus:bg-maryOrange transition ease-in-out duration-150"
             >
-              Add Employee
+              Edit Employee
             </button>
           </div>
         </form>

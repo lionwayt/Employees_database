@@ -1,11 +1,12 @@
 import  { useEffect, useState } from 'react'
-import { fetchDepartments } from '../utils/EmployeeHelper.jsx'
+import { fetchDepartments, fetchBranches } from '../utils/EmployeeHelper.jsx'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
 const Add = () => {
     const [departments, setDepartments] = useState([]);
+    const [branches, setBranches] = useState([]);
     const [formData, setFormData] = useState([]);
     const navigate = useNavigate();
 
@@ -18,6 +19,16 @@ const Add = () => {
         getDepartments();
      
     }, []);
+
+    useEffect(() => {
+      const getBranches = async () => {
+      const branches = await fetchBranches();
+      setBranches(branches);
+
+  };
+  getBranches();
+
+}, []);
 
     const handleInputChange = (e) => {
         const { name, value, files } = e.target;
@@ -66,6 +77,87 @@ const Add = () => {
         <h2 className="text-lg font-semibold mb-4 text-maryBlue">Employee Registration</h2>
 
         <form onSubmit={handleSubmit} className="space-y-8">
+          {/*  Information Section */}
+          <fieldset className="border border-maryBlue p-4 rounded-md">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+                <label  className='block text-sm font-medium text-gray-700'>
+                    Upload Image
+                </label>
+                <input type="file" 
+                name='image'
+                placeholder='Upload Image'
+                onChange={handleInputChange}
+                accept='image/*'
+                className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange'
+                required/>
+              </div>
+          <div>
+                <label htmlFor='role' className='block text-sm font-medium text-gray-700'>
+                    Role
+                </label>
+                <select
+                name='role'
+                className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange'
+                onChange={handleInputChange}
+                required>
+                    <option>Select Role</option>
+                    <option value="hr">Hr</option>
+                    <option value="employee">Employee</option>
+                    <option value="projectCo">Project Coordinator</option>
+                    <option value="executiveDir">Executive Director</option>
+                    </select>
+              </div>
+          <div>
+                <label htmlFor='department' className="block text-sm font-medium text-gray-700">Department</label>
+                <select name="department"  className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange '
+                  onChange={handleInputChange }>
+                    
+                    <option value="">Select Department</option>
+                   {departments.map(dep => (
+                    <option key={dep._id} value={dep._id}>{dep.dep_name}</option>
+                   ))}
+                    
+                  </select>
+                
+              </div>
+              <div>
+                <label htmlFor='branch' className="block text-sm font-medium text-gray-700">Branch</label>
+                <select name="branch"  className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange '
+                  onChange={handleInputChange }>
+                    
+                    <option value="">Select Branch</option>
+                   {branches.map(bra => (
+                    <option key={bra._id} value={bra._id}>{bra.branch_name}</option>
+                   ))}
+                    
+                  </select>
+                
+              </div>
+        <div>
+                <label htmlFor='employeeId' className='block text-sm font-medium text-gray-700'>
+                    Employee ID
+                </label>
+                <input type="text" 
+                name='employeeId'
+                onChange={handleInputChange}
+                placeholder='Employee ID'
+                className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange'
+                required/>
+              </div>
+              <div>
+                <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
+                    password
+                </label>
+                <input type="password" 
+                name='password'
+                placeholder='******'
+                onChange={handleInputChange}
+                className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange'
+                required/>
+              </div>
+              </div>
+              </fieldset>
           
           {/* Personal Information Section */}
           <fieldset className="border border-maryBlue p-4 rounded-md">
@@ -129,17 +221,7 @@ const Add = () => {
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
               </div>
-              <div>
-                <label htmlFor='employeeId' className='block text-sm font-medium text-gray-700'>
-                    Employee ID
-                </label>
-                <input type="text" 
-                name='employeeId'
-                onChange={handleInputChange}
-                placeholder='Employee ID'
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                required/>
-              </div>
+             
             </div>
           </fieldset>
 
@@ -147,31 +229,8 @@ const Add = () => {
           <fieldset className="border border-maryBlue p-4 rounded-md">
             <legend className="text-lg font-medium text-maryOrange">Employment Information</legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <label htmlFor='position' className="block text-sm font-medium text-gray-700">Position</label>
-                <input
-                  type="text"
-                  
-                  name="position"
-                  required
-                 
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
-                />
-              </div>
-              <div>
-                <label htmlFor='department' className="block text-sm font-medium text-gray-700">Department</label>
-                <select name="department"  className='mt-1 p-2 block w-full border '
-                  onChange={handleInputChange }>
-                    
-                    <option value="">Select Department</option>
-                   {departments.map(dep => (
-                    <option key={dep._id} value={dep._id}>{dep.dep_name}</option>
-                   ))}
-                    
-                  </select>
-                
-              </div>
+              
+             
               <div>
                 <label htmlFor='startDate'  className="block text-sm font-medium text-gray-700">Start Date</label>
                 <input
@@ -332,47 +391,9 @@ const Add = () => {
                 />
               </div>
 
-              <div>
-                <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                    password
-                </label>
-                <input type="password" 
-                name='password'
-                placeholder='******'
-                onChange={handleInputChange}
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                required/>
-              </div>
+             
 
-              <div>
-                <label  className='block text-sm font-medium text-gray-700'>
-                    Upload Image
-                </label>
-                <input type="file" 
-                name='image'
-                placeholder='Upload Image'
-                onChange={handleInputChange}
-                accept='image/*'
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                required/>
-              </div>
-
-              <div>
-                <label htmlFor='role' className='block text-sm font-medium text-gray-700'>
-                    Role
-                </label>
-                <select
-                name='role'
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                onChange={handleInputChange}
-                required>
-                    <option>Select Role</option>
-                    <option value="hr">Hr</option>
-                    <option value="employee">Employee</option>
-                    <option value="projectCo">Project Coordinator</option>
-                    <option value="executiveDir">Executive Director</option>
-                    </select>
-              </div>
+              
             </div>
           </fieldset>
          

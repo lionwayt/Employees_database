@@ -7,7 +7,7 @@ const employeeSchema = new Schema({
   dob: { type: Date },
   address: { type: String, required: true},
   phone: { type: String, required: true, unique: true},
-  position: {type: String},
+  branch: {type: Schema.Types.ObjectId, ref:"Branch", required: true},
   department: {type: Schema.Types.ObjectId, ref:"Department", required: true},
   startDate: { type: Date, default: Date.now},
   employmentType: {type: String},

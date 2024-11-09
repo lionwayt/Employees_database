@@ -9,48 +9,48 @@ const DepartmentList = () => {
   const [depLoading, setDepLoading] = useState(false);
   const [filteredDepartments, setFilterDepartments] = useState([]);
 
-  const onDepartmentDelete = async (id) => {
-    const data = departments.filter((dep) => dep._id !== id);
-    setDepartments(data);
+  const onDepartmentDelete = () => {
+    fetchDepartments()
   }
 
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      setDepLoading(true);
-      try {
-        const responnse = await axios.get(
-          "http://localhost:3000/api/department",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        if (responnse.data.success) {
-          let no = 1;
+  const fetchDepartments = async () => {
+    setDepLoading(true);
+    try {
+      const responnse = await axios.get(
+        "http://localhost:3000/api/department",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (responnse.data.success) {
+        let no = 1;
+     
        
-         
-          const data = await responnse.data.departments.map((dep) => (
-            {
-            _id: dep._id,
-            no: no++,
-            dep_name: dep.dep_name,
-            action: (
-              <DepartmentBtn
-                Id={dep._id}
-                onDepartmentDelete={onDepartmentDelete}/> ),
-          }));
-          setDepartments(data);
-          setFilterDepartments(data);
-        }
-      } catch (error) {
-        if (error.response && !error.response.data.success) {
-          alert(error.response.data.error)
-        }
-      } finally {
-        setDepLoading(false);
+        const data = await responnse.data.departments.map((dep) => (
+          {
+          _id: dep._id,
+          no: no++,
+          dep_name: dep.dep_name,
+          action: (
+            <DepartmentBtn
+              Id={dep._id}
+              onDepartmentDelete={onDepartmentDelete}/> ),
+        }));
+        setDepartments(data);
+        setFilterDepartments(data);
       }
-    };
+    } catch (error) {
+      if (error.response && !error.response.data.success) {
+        alert(error.response.data.error)
+      }
+    } finally {
+      setDepLoading(false);
+    }
+  };
+  useEffect(() => {
+    
     fetchDepartments();
   }, []);
 
@@ -68,11 +68,9 @@ const DepartmentList = () => {
        : 
         <div className="p-5">
           <div className="text-center">
-            {/* Title */}
-            <h1 className="text-2xl font-bold mb-6 text-maryBlue">
-              {" "}
+            <h3 className="text-2xl font-bold mb-6 text-maryBlue">
               Manage Departments
-            </h1>
+            </h3>
           </div>
           <div className="flex justify-between items-center">
             <input
@@ -83,13 +81,11 @@ const DepartmentList = () => {
             />
             <Link
               to="/hr_dashboard/add-department"
-              className="px-4 py-1 bg-maryBlue rounded text-white"
-            >
+              className="px-4 py-1 bg-maryBlue rounded text-white">
               Add New Department
             </Link>
           </div>
-
-          {/* Department Table */}
+          
           <div className="mt-5">
             <DataTable
               columns={columns}

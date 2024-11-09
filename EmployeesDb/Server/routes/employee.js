@@ -4,6 +4,7 @@ import {addEmployee, upload, getEmployees, getEmployee, updateEmployee} from '..
 
 
 const router = express.Router()
+
 router.get('/', authMiddleware, getEmployees)
 router.post('/add', authMiddleware, upload.single('image'), addEmployee)
 router.get('/:id', authMiddleware, getEmployee)

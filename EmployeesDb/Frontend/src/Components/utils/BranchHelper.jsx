@@ -9,8 +9,8 @@ export const columns = [
         selector: (row) => row.no,
     },
     {
-        name: "Department Name",
-        selector: (row) => row.dep_name,
+        name: "Branch Name",
+        selector: (row) => row.branch_name,
         sortable: true
     },
     {
@@ -20,7 +20,7 @@ export const columns = [
 ];
 
 
-export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
+export const BranchBtn = ({Id, onBranchDelete }) => {
     const navigate = useNavigate();
 
     const handleDelete = async (id) => {
@@ -29,7 +29,7 @@ export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
         try {
            
             const responnse =  await axios.delete(
-                `http://localhost:3000/api/department/${id}`,
+                `http://localhost:3000/api/branch/${id}`,
                  {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -37,7 +37,7 @@ export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
         });
            
             if(responnse.data.success) {
-                onDepartmentDelete();
+                onBranchDelete();
             }
            } catch(error) {
             if (error.response && !error.response.data.success) {
@@ -50,7 +50,7 @@ export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
     return(
         <div className="flex space-x-3">
             <button className="px-3 py-1 bg-maryBlue text-white"
-            onClick={() => navigate(`/hr_dashboard/department/${Id}`)}
+            onClick={() => navigate(`/hr_dashboard/branch/${Id}`)}
             >Edit</button>
             <button className="px-3 py-1 bg-red-600 text-white"
             onClick={() => handleDelete(Id)}

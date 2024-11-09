@@ -15,7 +15,7 @@ const Sidebar = () => {
     <div className='bg-slate-400 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64'>
         <div className='bg-maryBlue h-20 flex items-center justify-center'>
         <img className='logo w-20 h-20 p-2   ' src={logo} alt="" />
-            <h3 className='text-2x1 text-center font-bold  '>Employees Page</h3>
+            <h3 className='text-2x1 text-center font-bold  '>Employee Page</h3>
            
         </div>
         <div className='px-4'>

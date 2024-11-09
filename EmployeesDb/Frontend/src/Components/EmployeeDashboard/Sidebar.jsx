@@ -51,7 +51,7 @@ const Sidebar = () => {
             } 
         >
                 <FaBuilding/>
-                <span>Leaves</span>
+                <span>Leave</span>
              </NavLink>
 
 

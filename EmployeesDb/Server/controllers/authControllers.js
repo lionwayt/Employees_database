@@ -7,14 +7,13 @@ try{
     const {email, password} = req.body;
     const user = await User.findOne({email})
     if(!user) {
-        errors.email = "User Not Found";
-        res.status(404).json({errors})
+        
+        res.status(404).json({success: false, error: "User Not Found"})
         return;
     }
     const isMatch = await bcrypt.compare(password, user.password)
     if(!isMatch){
         res.status(404).json({success: false, error: "Wrong Password"}) 
-        return;
     }
 
     const token = jwt.sign(

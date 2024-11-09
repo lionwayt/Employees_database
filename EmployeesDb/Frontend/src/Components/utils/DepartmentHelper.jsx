@@ -29,7 +29,7 @@ export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
         try {
            
             const responnse =  await axios.delete(
-                `https://mjemployeemanagment.onrender.com/department/${id}`,
+                `https://mjemployeemanagment.onrender.com/api/department/${id}`,
                  {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

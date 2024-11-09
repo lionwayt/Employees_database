@@ -45,7 +45,7 @@ export const fetchDepartments = async () => {
         
         try {
           const responnse =  await axios.get(
-            'https://mjemployeemanagment.onrender.com/department',
+            'https://mjemployeemanagment.onrender.com/api/department',
             
              {
             headers: {
@@ -68,7 +68,7 @@ export const fetchDepartments = async () => {
           
           try {
             const responnse =  await axios.get(
-              'https://mjemployeemanagment.onrender.com/branch',
+              'https://mjemployeemanagment.onrender.com/api/branch',
               
                {
               headers: {

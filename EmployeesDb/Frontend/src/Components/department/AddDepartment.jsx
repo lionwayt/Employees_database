@@ -22,7 +22,7 @@ const AddDepartment = () => {
   
       try {
         const response = await axios.post(
-         'https://mjemployeemanagment.onrender.com/department/add',
+         'https://mjemployeemanagment.onrender.com/api/department/add',
           department,
           {
             headers: {

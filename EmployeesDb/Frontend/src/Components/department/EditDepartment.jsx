@@ -58,7 +58,7 @@ const EditDepartment = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-              `https://mjemployeemanagment.onrender.com/department/${id}`,
+              `https://mjemployeemanagment.onrender.com/api/department/${id}`,
               department,
               {
                 headers: {

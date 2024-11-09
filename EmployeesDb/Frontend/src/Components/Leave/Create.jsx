@@ -22,7 +22,7 @@ const Create = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                `https://mjemployeemanagment.onrender.com/leave/add`, 
+                `https://mjemployeemanagment.onrender.com/api/leave/add`, 
                 leave,
                 {
                     headers: {

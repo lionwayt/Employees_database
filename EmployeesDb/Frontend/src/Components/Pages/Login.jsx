@@ -20,7 +20,7 @@ const Login = () => {
       e.preventDefault();
       try {
         const response = await axios.post(
-          'https://mjemployeemanagment.onrender.com/auth/login',
+          'https://mjemployeemanagment.onrender.com/api/auth/login',
            { email, password }
           );
        if(response.data.success) {

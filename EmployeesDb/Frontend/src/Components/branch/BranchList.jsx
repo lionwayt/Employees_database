@@ -20,7 +20,7 @@ const BranchList = () => {
         setBraLoading(true);
         try {
           const responnse = await axios.get(
-            "http://localhost:3000/api/branch",
+            "https://mjemployeemanagment.onrender.com/branch",
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,

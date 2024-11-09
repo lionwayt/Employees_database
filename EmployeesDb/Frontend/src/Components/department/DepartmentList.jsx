@@ -17,7 +17,7 @@ const DepartmentList = () => {
     setDepLoading(true);
     try {
       const responnse = await axios.get(
-        "http://localhost:3000/api/department",
+        "https://mjemployeemanagment.onrender.com/department",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

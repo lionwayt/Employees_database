@@ -50,7 +50,7 @@ const Add = () => {
   
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/employee/add",
+          "https://mjemployeemanagment.onrender.com/employee/add",
            formDataObj,
           {
             headers: {

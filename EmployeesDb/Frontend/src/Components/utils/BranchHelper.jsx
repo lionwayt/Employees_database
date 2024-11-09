@@ -29,7 +29,7 @@ export const BranchBtn = ({Id, onBranchDelete }) => {
         try {
            
             const responnse =  await axios.delete(
-                `http://localhost:3000/api/branch/${id}`,
+                `https://mjemployeemanagment.onrender.com/branch/${id}`,
                  {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

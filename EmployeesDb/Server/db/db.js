@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import .env from '.env'
-.env.config()
+
 
 
 const connectToDatabase = async () =>{

@@ -42,6 +42,7 @@ const addEmployee = async (req, res) => {
         accountName,
         accountNumber,
         salary,
+        training,
 
 } = req.body;
 
@@ -81,7 +82,8 @@ const newEmployee = new Employee({
     bankName,
     accountName,
     accountNumber,
-    salary
+    salary,
+    training
    
 });
 
@@ -126,7 +128,28 @@ const updateEmployee = async (req, res) => {
     const {id} = req.params;
     try {
         const {
+            dob,
+            email,
             name,
+            role,
+            password,
+            address,
+            phone,
+            branch,
+            department,
+            startDate,
+            employmentType,
+            workEmail,
+            workPhone,
+            emergencyContactName,
+            emergencyContactRelationship,
+            emergencyContactPhone,
+            emergencyContactAddress,
+            bankName,
+            accountName,
+            accountNumber,
+            salary,
+            training,
         
             
         } = req.body;
@@ -143,7 +166,27 @@ const updateEmployee = async (req, res) => {
         }
     const updateUser = await User.findByIdAndUpdate({_id: employee.userId}, {name})
     const updateEmployee = await Employee.findByIdAndUpdate({_id: id}, {
-        name,
+        dob,
+        email,
+        role,
+        password,
+        address,
+        phone,
+        branch,
+        department,
+        startDate,
+        employmentType,
+        workEmail,
+        workPhone,
+        emergencyContactName,
+        emergencyContactRelationship,
+        emergencyContactPhone,
+        emergencyContactAddress,
+        bankName,
+        accountName,
+        accountNumber,
+        salary,
+        training,
     })
       
     if(!updateEmployee || !updateUser) {

@@ -7,6 +7,7 @@ export const columns = [
         selector: (row) => row.no,
         width: "70px"
     },
+    
     {
         name: "Name",
         selector: (row) => row.name,
@@ -16,42 +17,52 @@ export const columns = [
     },
 
     {
-      name: "Image",
-      selector: (row) => row.profileImage,
-      width: "90px"
-
-  },
-
-    {
         name: "Department",
         selector: (row) => row.dep_name,
+      
         width: "120px"
     },
+
     {
       name: "Branch",
-      selector: (row) => row.dep_name,
+      selector: (row) => row.branch_name,
+      
       width: "120px"
   },
+
+  {
+    name: "Email",
+    selector: (row) => row.email,
+    width: "180px"
+},
+{
+  name: "Phone",
+  selector: (row) => row.phone,
+
+  width: "120px"
+},
     {
         name: "Action ",
         selector: (row) => row.action,
         center: true
-    },
+    }
 ];
 
 
 export const fetchDepartments = async () => {
+
     let departments
         
         try {
           const responnse =  await axios.get(
-            'https://mjemployeemanagment.onrender.com/api/department',
+            'http://localhost:3000/api/department',
             
              {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-          })
+            },
+          }
+        )
           if(responnse.data.success) {
             departments = responnse.data.departments
           }

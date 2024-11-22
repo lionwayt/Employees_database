@@ -1,20 +1,19 @@
 
 import axios from "axios";
-import { useState } from "react";
+import {useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const AddCoordinator = () => {
 
-const AddBranch = () => {
-
-    const [branch, setBranch] = useState({
-        branch_name: "",
+    const [coordinator, setCoordinator] = useState({
+        co_name: "",
         description: "",
       });
       
   
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setBranch({...branch, [name] : value});
+      setCoordinator({...coordinator, [name] : value});
     }
     const navigate = useNavigate();
 
@@ -23,8 +22,8 @@ const AddBranch = () => {
   
       try {
         const response = await axios.post(
-         'https://mjemployeemanagment.onrender.com/api/branch/add',
-          branch,
+         'https://mjemployeemanagment.onrender.com/api/coordinator/add',
+         coordinator,
           {
             headers: {
               "Authorization" : `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +31,7 @@ const AddBranch = () => {
           }
         );
         if (response.data.success) {
-          navigate("/hr_dashboard/branches");
+          navigate("/hr_dashboard/coordinators");
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -44,10 +43,10 @@ const AddBranch = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-    {/* Add New Branch Form */}
+    {/* Add New Project Coordinator Form */}
     <div className="mt-8">
     <h2 className="text-2xl font-bold mb-4 text-maryBlue">
-      Add New Branch
+      Add New Project Coordinator
     </h2>
     <form
       className="bg-white shadow-md rounded-lg p-6 border-t-4 border-maryOrange"
@@ -55,20 +54,20 @@ const AddBranch = () => {
     >
       <fieldset className="border border-maryBlue p-4 rounded-md">
         <legend className="text-lg font-medium text-maryOrange">
-          Branch Information
+        Project Coordinator Information
         </legend>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
             <label
-              htmlFor="branch_name"
+              htmlFor="co_name"
               className="block text-sm font-medium text-gray-700"
             >
-              Branch Name
+              Project Coordinator Name
             </label>
             <input
               type="text"
-              name="branch_name"
-              placeholder="Branch Name"
+              name="co_name"
+              placeholder="Project Coordinator"
               onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
               required
@@ -79,7 +78,7 @@ const AddBranch = () => {
               htmlFor="description"
               className="block text-sm font-medium text-gray-700"
             >
-              Branch Description
+               Description
             </label>
             <input
               type="text"
@@ -89,18 +88,15 @@ const AddBranch = () => {
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
               required
             />
-          </div>
-
-          
+          </div> 
         </div>
       </fieldset>
-
       <div className="text-right mt-4">
         <button
           type="submit"
           className="px-6 py-2 bg-maryBlue text-white font-medium text-sm rounded-md hover:bg-maryOrange focus:outline-none focus:bg-maryOrange transition ease-in-out duration-150"
         >
-          Add Branch
+          Add Coordinator
         </button>
       </div>
     </form>
@@ -110,4 +106,4 @@ const AddBranch = () => {
   )
 }
 
-export default AddBranch
+export default AddCoordinator

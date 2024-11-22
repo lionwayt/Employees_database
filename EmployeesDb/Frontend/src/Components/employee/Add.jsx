@@ -221,6 +221,18 @@ const Add = () => {
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
               </div>
+              <div>
+                <label htmlFor='training' className="block text-sm font-medium text-gray-700">Training</label>
+                <input
+                  type="text"
+                
+                  name="training"
+                  required
+                
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
+                />
+              </div>
              
             </div>
           </fieldset>
@@ -295,10 +307,8 @@ const Add = () => {
                 <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
-               
                   name="emergencyContactName"
                   required
-                 
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -319,10 +329,8 @@ const Add = () => {
                 <label  className="block text-sm font-medium text-gray-700">Phone Number</label>
                 <input
                   type="tel"
-              
                   name="emergencyContactPhone"
                   required
-                  
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -331,10 +339,8 @@ const Add = () => {
                 <label className="block text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
-        
                   name="emergencyContactAddress"
                   required
-                  
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -361,11 +367,9 @@ const Add = () => {
               <div>
                 <label htmlFor='accountName' className="block text-sm font-medium text-gray-700">Account Name</label>
                 <input
-                  type="text"
-        
+                  type="text"      
                   name="accountName"
-                  required
-                 
+                  required      
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />

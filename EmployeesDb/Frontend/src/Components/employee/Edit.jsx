@@ -1,13 +1,33 @@
 import  { useEffect, useState } from 'react'
 import axios from 'axios';
-import { fetchDepartments} from '../utils/EmployeeHelper.jsx';
+import { fetchDepartments, fetchBranches} from '../utils/EmployeeHelper.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Edit = () => {
-    const [departments, setDepartments] = useState(null);
+    
     const [employee, setEmployee] = useState({
-      name: ''
+      name: '',
+      dob: '',
+        email: '',
+        address: '',
+        phone: '',
+        branch: '',
+        department: '',
+        startDate: '',
+        employmentType: '',
+        workEmail: '',
+        workPhone: '',
+        emergencyContactName: '',
+        emergencyContactRelationship: '',
+        emergencyContactPhone: '',
+        emergencyContactAddress: '',
+        bankName: '',
+        accountName: '',
+        accountNumber: '',
+        salary: ''
     });
+    const [departments, setDepartments] = useState(null);
+    const [branches, setBranches] = useState(null);
     const navigate = useNavigate();
     const {id} = useParams()
 
@@ -16,6 +36,7 @@ const Edit = () => {
     
 
     useEffect(() => {
+     
         const fetchEmployee = async () => {
        
       try {
@@ -29,10 +50,29 @@ const Edit = () => {
           }
         );
         if (responnse.data.success) {
-          const employee = responnse.data.employee;
+          const employee = responnse.data.employee
           setEmployee((prev) => ({ 
             ...prev,
-             name: employee.userId.name}));
+             name: employee.userId.name,
+             dob: employee.dob,
+             email: employee.email,
+ 
+             address: employee.address,
+             phone: employee.phone,
+             branch: employee.branch,
+             department: employee.department,
+             startDate: employee.startDate,
+             employmentType: employee.employmentType,
+             workEmail: employee.workEmail,
+             workPhone: employee.workPhone,
+             emergencyContactName: employee.emergencyContactName,
+             emergencyContactRelationship: employee.emergencyContactRelationship,
+             emergencyContactPhone: employee.emergencyContactPhone,
+             emergencyContactAddress: employee.emergencyContactAddress,
+             bankName: employee.bankName,
+             accountName: employee.accountName,
+             accountNumber: employee.accountNumber,
+             salary: employee.salary}));
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -55,6 +95,17 @@ const Edit = () => {
    
   }, []);
 
+  useEffect(() => {
+    const getBranches = async () => {
+        const branches = await fetchBranches();
+        setBranches(branches);
+
+    };
+
+    getBranches();
+ 
+}, []);
+
     const handleInputChange = (e) => {
       const { name, value} = e.target;
     {
@@ -71,7 +122,7 @@ const Edit = () => {
        
       try {
         const response = await axios.put(
-        `https://mjemployeemanagment.onrender.com/api/employee/${id}`,
+        `https://mjemployeemanagment.onrender.com/${id}`,
         employee,
           
           {
@@ -93,7 +144,7 @@ const Edit = () => {
 
 
   return (
-    <>{departments && employee ? (
+    <>{departments && employee && branches ? (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-maryOrange">
         <h2 className="text-lg font-semibold mb-4 text-maryBlue">Edit Employee</h2>
@@ -119,6 +170,7 @@ const Edit = () => {
                 <input
                   type="date"
                   name="dob"
+                  value= {employee.dob}
                   required 
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
@@ -130,7 +182,7 @@ const Edit = () => {
                   type="text"
                   name="address"
                   required
-                  
+                  value= {employee.address}
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
@@ -139,7 +191,7 @@ const Edit = () => {
                 <label htmlFor='phone'  className="block text-sm font-medium text-gray-700">Primary Phone Number</label>
                 <input
                   type="tel"
-
+                  value= {employee.phone}
                   name="phone"
                   required
                 
@@ -157,34 +209,13 @@ const Edit = () => {
           <fieldset className="border border-maryBlue p-4 rounded-md">
             <legend className="text-lg font-medium text-maryOrange">Employment Information</legend>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <label htmlFor='position' className="block text-sm font-medium text-gray-700">Position</label>
-                <input
-                  type="text"
-                  
-                  name="position"
-                  required
-                 
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
-                />
-              </div>
-              <div className='col-span-2'>
-                <label htmlFor='department' className="block text-sm font-medium text-gray-700">Department</label>
-                <select name="department" className='mt-1 p-2 block w-full border '
-                  required>
-                    <option value="">Select Department</option>
-                    {departments.map(dep => (
-                      <option key={dep._id} value={dep._id}> {dep.dep_name} </option>
-                    ))}
-                  </select>
-                
-              </div>
+              
+             
               <div>
                 <label htmlFor='startDate'  className="block text-sm font-medium text-gray-700">Start Date</label>
                 <input
                   type="date"
-                  
+                  value= {employee.startDate}
                   name="startDate"
                   required
                  
@@ -198,7 +229,7 @@ const Edit = () => {
                
                   name="employmentType"
                   required
-                 
+                  value= {employee.employmentType}
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 >
@@ -213,7 +244,7 @@ const Edit = () => {
                 <label htmlFor='workEmail' className="block text-sm font-medium text-gray-700">Work Email</label>
                 <input
                   type="email"
-                  
+                  value= {employee.workEmail}
                   name="workEmail"
                   required
                  
@@ -225,7 +256,7 @@ const Edit = () => {
                 <label htmlFor='workPhone' className="block text-sm font-medium text-gray-700">Work Phone Number</label>
                 <input
                   type="tel"
-                 
+                  value= {employee.workPhone}
                   name="workPhone"
                   required
                  
@@ -244,7 +275,7 @@ const Edit = () => {
                 <label htmlFor='emergencyContactName' className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
-               
+                  value= {employee.emergencyContactName}
                   name="emergencyContactName"
                   required
                  
@@ -256,8 +287,8 @@ const Edit = () => {
                 <label htmlFor='emergencyRelationship' className="block text-sm font-medium text-gray-700">Relationship</label>
                 <input
                   type="text"
-             
-                  name="emergencyRelationship"
+                  value= {employee.emergencyContactRelationship}
+                  name="emergencyContactRelationship"
                   required
                  
                   onChange={handleInputChange}
@@ -265,23 +296,22 @@ const Edit = () => {
                 />
               </div>
               <div>
-                <label htmlFor='emergencyPhone'  className="block text-sm font-medium text-gray-700">Phone Number</label>
+                <label htmlFor='emergencyContactPhone'  className="block text-sm font-medium text-gray-700">Phone Number</label>
                 <input
                   type="tel"
-              
-                  name="emergencyPhone"
-                  required
-                  
+                  value= {employee.emergencyContactPhone}
+                  name="emergencyContactPhone"
+                  required 
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
                 />
               </div>
               <div>
-                <label htmlFor='emergencyAddress' className="block text-sm font-medium text-gray-700">Address</label>
+                <label htmlFor='emergencyContactAddress' className="block text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
-        
-                  name="emergencyAddress"
+                  value= {employee.emergencyContactAddress}
+                  name="emergencyContactAddress"
                   required
                   
                   onChange={handleInputChange}
@@ -299,7 +329,7 @@ const Edit = () => {
                 <label htmlFor='bankName' className="block text-sm font-medium text-gray-700">Bank Name</label>
                 <input
                   type="text"
-                
+                  value= {employee.bankName}
                   name="bankName"
                   required
                   
@@ -311,7 +341,7 @@ const Edit = () => {
                 <label htmlFor='accountName' className="block text-sm font-medium text-gray-700">Account Name</label>
                 <input
                   type="text"
-        
+                  value= {employee.accountName}
                   name="accountName"
                   required
                  
@@ -324,6 +354,7 @@ const Edit = () => {
                 <input
                   type="text"
                   name="accountNumber"
+                  value= {employee.accountNumber}
                   required
                   onChange={handleInputChange}
                   className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
@@ -333,6 +364,7 @@ const Edit = () => {
                 <label htmlFor='salary'  className="block text-sm font-medium text-gray-700">Salary</label>
                 <input
                   type="number"
+                  value= {employee.salary}
                   name="salary"
                   required
                   onChange={handleInputChange}
@@ -340,34 +372,8 @@ const Edit = () => {
                 />
               </div>
 
-              <div>
-                <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                    password
-                </label>
-                <input type="password" 
-                name='password'
-                placeholder='******'
-                onChange={handleInputChange}
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                required/>
-              </div>
-
-              <div>
-                <label htmlFor='role' className='block text-sm font-medium text-gray-700'>
-                    Role
-                </label>
-                <select
-                name='role'
-                className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
-                onChange={handleInputChange}
-                required>
-                    <option>Select Role</option>
-                    <option value="hr">Hr</option>
-                    <option value="employee">Employee</option>
-                    <option value="projectCo">Project Coordinator</option>
-                    <option value="executiveDi">Executive Director</option>
-                    </select>
-              </div>
+             
+              
             </div>
           </fieldset>
          

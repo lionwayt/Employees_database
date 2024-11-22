@@ -2,22 +2,22 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import {DepartmentBtn } from "../utils/DepartmentHelper.jsx";
+import {CoordinatorBtn } from "../utils/CoordinatorHelper.jsx";
 
-const EditDepartment = () => {
+const EditCoordinator = () => {
     const {id} = useParams()
-    const [department, setDepartment] = useState([])
-    const [depLoading, setDepLoading] = useState(false)
+    const [coordinator, setCoordinator] = useState([])
+    const [coLoading, setCoLoading] = useState(false)
     const navigate = useNavigate();
 
   
 
     useEffect(() => {
-        const fetchDepartments = async () => {
-          setDepLoading(true)
+        const fetchCoordinators = async () => {
+          setCoLoading(true)
           try {
             const responnse =  await axios.get(
-              `https://mjemployeemanagment.onrender.com/api/department/${id}`,
+              `https://mjemployeemanagment.onrender.com/api/coordinator/${id}`,
                {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -27,29 +27,29 @@ const EditDepartment = () => {
             if(responnse.data.success) {
               let no= 1;
               console.log(responnse.data)
-             const data = await responnse.data.departments.map((dep)=> (
+             const data = await responnse.data.coordinators.map((co)=> (
               {
-                _id: dep._id,
+                _id: co._id,
                 no: no++,
-                dep_name: dep.dep_name,
-                action: <DepartmentBtn Id={dep._id} />,
+                co_name: co.co_name,
+                action: <CoordinatorBtn Id={co._id} />,
               }));
-             setDepartment(data)
+              setCoordinator(data)
             }
            } catch(error) {
             if (error.response && !error.response.data.success) {
               alert(error.response.data.error);
            }
         } finally {
-          setDepLoading(false)
+            setCoLoading(false)
         }
       };
-      fetchDepartments();
+      fetchCoordinators();
      }, []); 
 
      const handleChange = (e) => {
         const { name, value } = e.target;
-        setDepartment({ ...department, [name]: value });
+        setCoLoading({ ...coordinator, [name]: value });
       };
 
       
@@ -58,8 +58,8 @@ const EditDepartment = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-              `https://mjemployeemanagment.onrender.com/api/department/${id}`,
-              department,
+              `https://mjemployeemanagment.onrender.com/api/coordinator/${id}`,
+              coordinator,
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,7 +67,7 @@ const EditDepartment = () => {
               }
             );
             if (response.data.success) {
-              navigate("hr_dashboard/departments");
+              navigate("hr_dashboard/coordinators");
             }
           } catch (error) {
             if (error.response && !error.response.data.success) {
@@ -77,12 +77,12 @@ const EditDepartment = () => {
       };
   
   return (
-    <>{depLoading ? <div>Loading ...</div> :
+    <>{coLoading ? <div>Loading ...</div> :
     <div className="container mx-auto px-4 py-8">
     {/* Edit Department Form */}
     <div className="mt-8">
     <h2 className="text-2xl font-bold mb-4 text-maryBlue">
-      Edit Department
+      Edit Coordinator
     </h2>
     <form
       className="bg-white shadow-md rounded-lg p-6 border-t-4 border-maryOrange"
@@ -90,21 +90,21 @@ const EditDepartment = () => {
     >
       <fieldset className="border border-maryBlue p-4 rounded-md">
         <legend className="text-lg font-medium text-maryOrange">
-          Department Information
+        Coordinator Information
         </legend>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
             <label
-              htmlFor="dep_name"
+              htmlFor="co_name"
               className="block text-sm font-medium text-gray-700"
             >
-              Department Name
+              Coordinator Name
             </label>
             <input
               type="text"
-              name="dep_name"
-              placeholder="Department Name"
-              value={department.dep_name}
+              name="co_name"
+              placeholder="Coordinator Name"
+              value={coordinator.co_name}
               onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
               required
@@ -115,13 +115,13 @@ const EditDepartment = () => {
               htmlFor="description"
               className="block text-sm font-medium text-gray-700"
             >
-              Department Description
+               Description
             </label>
             <input
               type="text"
               name="description"
               placeholder="Description"
-              value={department.description}
+              value={coordinator.description}
               onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange"
               required
@@ -135,7 +135,7 @@ const EditDepartment = () => {
           type="submit"
           className="px-6 py-2 bg-maryBlue text-white font-medium text-sm rounded-md hover:bg-maryOrange focus:outline-none focus:bg-maryOrange transition ease-in-out duration-150"
         >
-          Edit Department
+          Edit Coordinator
         </button>
       </div>
     </form>
@@ -145,4 +145,4 @@ const EditDepartment = () => {
   )
 }
 
-export default EditDepartment;
+export default EditCoordinator

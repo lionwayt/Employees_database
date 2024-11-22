@@ -1,23 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { columns, DepartmentBtn } from "../utils/DepartmentHelper.jsx";
+import { columns, CoordinatorBtn } from "../utils/CoordinatorHelper.jsx";
 import { Link } from "react-router-dom";
 
-const DepartmentList = () => {
-  const [departments, setDepartments] = useState([]);
-  const [depLoading, setDepLoading] = useState(false);
-  const [filteredDepartments, setFilterDepartments] = useState([]);
+const ListCoordinator = () => {
+  const [coordinators, setCoordinators] = useState([]);
+  const [coLoading, setCoLoading] = useState(false);
+  const [filteredCoordinators, setFilterCoordinators] = useState([]);
 
-  const onDepartmentDelete = () => {
-    fetchDepartments()
+  const onCoordinatorDelete = () => {
+    fetchCoordinators()
   }
 
-  const fetchDepartments = async () => {
-    setDepLoading(true);
+  const fetchCoordinators = async () => {
+    setCoLoading(true);
     try {
       const responnse = await axios.get(
-        "https://mjemployeemanagment.onrender.com/api/department",
+        "https://mjemployeemanagment.onrender.com/api/coordinator",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -29,49 +29,49 @@ const DepartmentList = () => {
         let no = 1;
      
        
-        const data = await responnse.data.departments.map((dep) => (
+        const data = await responnse.data.coordinators.map((co) => (
           {
-          _id: dep._id,
+          _id: co._id,
           no: no++,
-          dep_name: dep.dep_name,
+          co_name: co.co_name,
           action: (
-            <DepartmentBtn
-              Id={dep._id}
-              onDepartmentDelete={onDepartmentDelete}
+            <CoordinatorBtn
+              Id={co._id}
+              onCoordinatorDelete={onCoordinatorDelete}
               /> ),
         }));
-        setDepartments(data);
-        setFilterDepartments(data);
+        setCoordinators(data);
+        setFilterCoordinators(data);
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
         alert(error.response.data.error)
       }
     } finally {
-      setDepLoading(false);
+      setCoLoading(false);
     }
   };
   useEffect(() => {
     
-    fetchDepartments();
+    fetchCoordinators();
   }, []);
 
-  const filterDepartments = (e) => {
-    const records = departments.filter((dep) =>
-      dep.dep_name.toLowerCase().includes(e.target.value.toLowerCase())
+  const filterCoordinators = (e) => {
+    const records = coordinators.filter((co) =>
+      co.co_name.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setFilterDepartments(records);
+    setFilterCoordinators(records);
   };
 
   return (
     <>
-      {depLoading ? 
+      {coLoading ? 
         <div>Loading ...</div>
        : 
         <div className="p-5">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-6 text-maryBlue">
-              Manage Departments
+              Manage Coordinators
             </h3>
           </div>
           <div className="flex justify-between items-center">
@@ -79,19 +79,19 @@ const DepartmentList = () => {
               type="text"
               placeholder="Search By Dep Name"
               className="px-4 py-0.5 border"
-              onChange={filterDepartments}
+              onChange={filterCoordinators}
             />
             <Link
-              to="/hr_dashboard/add-department"
+              to="/hr_dashboard/add-coordinator"
               className="px-4 py-1 bg-maryBlue rounded text-white">
-              Add New Department
+              Add New Coordinators
             </Link>
           </div>
           
           <div className="mt-5">
             <DataTable
               columns={columns}
-              data={filteredDepartments}
+              data={filteredCoordinators}
               pagination
             />
           </div>
@@ -100,4 +100,4 @@ const DepartmentList = () => {
   );
 };
 
-export default DepartmentList;
+export default ListCoordinator;

@@ -21,6 +21,7 @@ const employeeSchema = new Schema({
   accountName: {type: String},
   accountNumber: {type: String},
   salary: { type: Number, required: true},
+  training: {type: String},
   createAt: {type: Date, default: Date.now},
   updatedAt: {type: Date, default: Date.now},
 

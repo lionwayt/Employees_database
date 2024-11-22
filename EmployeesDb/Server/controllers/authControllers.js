@@ -14,6 +14,7 @@ try{
     const isMatch = await bcrypt.compare(password, user.password)
     if(!isMatch){
         res.status(404).json({success: false, error: "Wrong Password"}) 
+        return;
     }
 
     const token = jwt.sign(
@@ -30,10 +31,12 @@ try{
 
 } catch(error) {
     res.status(500).json({success: false, error: error.message})
+    return;
 }
 };
 
 const verify = (req, res) => {
     return res.status(200).json({success: true, user: req.user})
+    return;
 }
 export {login, verify};

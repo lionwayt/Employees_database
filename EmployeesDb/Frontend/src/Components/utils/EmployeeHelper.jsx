@@ -55,7 +55,7 @@ export const fetchDepartments = async () => {
         
         try {
           const responnse =  await axios.get(
-            'http://localhost:3000/api/department',
+            'https://mjemployeemanagment.onrender.com/api/department',
             
              {
             headers: {

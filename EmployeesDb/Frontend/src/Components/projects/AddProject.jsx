@@ -230,7 +230,7 @@ const AddProject = () => {
 
     try {
       const response = await axios.post(
-        "https://mjemployeemanagment.onrender.com/api/project/add",
+        "http://localhost:3000/api/project/add",
         project,
         {
           headers: {

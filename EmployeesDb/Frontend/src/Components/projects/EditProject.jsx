@@ -240,7 +240,7 @@ const EditProject = () => {
       setProjLoading(true);
       try {
         const response = await axios.get(
-          `https://mjemployeemanagment.onrender.com/api/project/${id}`,
+          `http://localhost:3000/api/project/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -262,7 +262,7 @@ const EditProject = () => {
 
     const fetchCoordinators = async () => {
       try {
-        const response = await axios.get(`https://mjemployeemanagment.onrender.com/api/employees/coordinators`, {
+        const response = await axios.get(`http://localhost:3000/api/employees/coordinators`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -290,7 +290,7 @@ const EditProject = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://mjemployeemanagment.onrender.com/api/project/${id}`,
+        `http://localhost:3000/api/project/${id}`,
         project,
         {
           headers: {

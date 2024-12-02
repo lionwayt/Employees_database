@@ -1,6 +1,6 @@
 
 import { NavLink } from 'react-router-dom'
-import {FaBuilding, FaFileArchive, FaMoneyBill,  FaTachometerAlt, FaUsers, FaClipboardList} from 'react-icons/fa'
+import {FaBuilding,  FaMoneyBill,  FaTachometerAlt, FaUsers, FaClipboardList, FaCogs} from 'react-icons/fa'
 import logo from '../assets/logo.png'
 
 const HrSidebar = () => {
@@ -77,14 +77,14 @@ const HrSidebar = () => {
     <span>Projects</span>
 </NavLink>
 
-            <NavLink to="/hr_dashboard/leave"
+            <NavLink to="/hr_dashboard/leaves"
             className={({isActive}) => `font-medium rounded-md py-2 px-5 transition duration-300 hover:bg-gradient-to-r from-maryBlue to-maryOrange
             ${isActive ? "bg-gradient-to-r from-maryBlue to-maryOrange text-white" :
                 "text-gray-800"} flex items-center space-x-4 block py-2.5 px-4 rounded`
                }
           
            > 
-                <FaFileArchive/>
+                <FaBuilding/>
                 <span>Leave</span>
             </NavLink>
 
@@ -97,7 +97,7 @@ const HrSidebar = () => {
                }
            
            >  
-                <FaFileArchive/>
+                <FaCogs/>
                 <span>Setting</span>
             </NavLink>
         </div>

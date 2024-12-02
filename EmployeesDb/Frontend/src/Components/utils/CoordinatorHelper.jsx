@@ -29,7 +29,7 @@ export const CoordinatorBtn = ({Id, onCoordinatorDelete}) => {
         try {
            
             const responnse =  await axios.delete(
-                `https://mjemployeemanagment.onrender.com/api/coordinator/${id}`,
+                `http://localhost:3000/api/coordinator/${id}`,
                  {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an Axios instance with base URL and other configurations
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.MONGODB_URL || 'https://mjemployeemanagment.onrender.com', // Use environment variable or default to local API
+  baseURL: import.meta.env.MONGODB_URL || 'http://localhost:3000', // Use environment variable or default to local API
   timeout: 10000, // Optional timeout for requests (10 seconds)
   headers: {
     'Content-Type': 'application/json', // Default header for all requests

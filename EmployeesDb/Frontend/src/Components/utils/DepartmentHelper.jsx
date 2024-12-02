@@ -20,16 +20,15 @@ export const columns = [
 ];
 
 
-export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
+export const DepartmentBtn = ({Id, onDepartmentDelete}) => {
     const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         const confirm = window.confirm("Do you want to delete?");
         if (confirm) {
         try {
-           
             const responnse =  await axios.delete(
-                `https://mjemployeemanagment.onrender.com/api/department/${id}`,
+                `http://localhost:3000/api/department/${id}`,
                  {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -45,17 +44,22 @@ export const DepartmentBtn = ({Id, onDepartmentDelete }) => {
            }
         }
     }
-    }
+    };
     
     return(
         <div className="flex space-x-3">
-            <button className="px-3 py-1 bg-maryBlue text-white"
-            onClick={() => navigate(`/hr_dashboard/department/${Id}`)}
-            >Edit</button>
-            <button className="px-3 py-1 bg-red-600 text-white"
+            <button 
+              className="px-3 py-1 bg-maryBlue text-white"
+              onClick={() => navigate(`/hr_dashboard/department/${Id}`)}
+            >
+                Edit
+                </button>
+            <button 
+            className="px-3 py-1 bg-red-600 text-white"
             onClick={() => handleDelete(Id)}
-            >Delete</button>
+            >
+                Delete</button>
         </div>
-    )
-}
+    );
+};
 

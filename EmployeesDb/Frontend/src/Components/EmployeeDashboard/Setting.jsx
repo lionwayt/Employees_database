@@ -28,7 +28,7 @@ const Setting = () => {
         } else {
             try {
                 const response = await axios.put(
-                    "https://mjemployeemanagment.onrender.com/api/setting/change-password",
+                    "http://localhost:3000/api/setting/change-password",
                     setting,
                     {
                         headers: {

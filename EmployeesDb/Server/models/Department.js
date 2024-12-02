@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Employee from '../models/Employee.js'
+import Leave from "./Leave.js"
 
 const departmentSchema = new mongoose.Schema({
     dep_name: {type: String, required: true},

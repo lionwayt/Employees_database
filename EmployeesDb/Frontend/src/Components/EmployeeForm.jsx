@@ -58,7 +58,7 @@ const EmployeeRegistrationForm = () => {
     })
     try {
       const response = await axios.post(
-        "https://mjemployeemanagment.onrender.com/employee/add",
+        "http://localhost:3000/employee/add",
         formDataObj,
         {
           headers: {

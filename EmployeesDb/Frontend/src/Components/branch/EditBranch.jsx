@@ -17,7 +17,7 @@ const EditBranch = () => {
             setBraLoading(true)
           try {
             const responnse =  await axios.get(
-              `https://mjemployeemanagment.onrender.com/api/branch/${id}`,
+              `http://localhost:3000/api/branch/${id}`,
                {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +58,7 @@ const EditBranch = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-              `https://mjemployeemanagment.onrender.com/api/branch/${id}`,
+              `http://localhost:3000/api/branch/${id}`,
               branch,
               {
                 headers: {

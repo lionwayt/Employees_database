@@ -326,7 +326,7 @@ const ProjectList = () => {
       setProjectLoading(true);
       try {
         const responnse = await axios.get(
-          "https://mjemployeemanagment.onrender.com/api/project",
+          "http://localhost:3000/api/project",
             {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,                 
@@ -343,9 +343,9 @@ const ProjectList = () => {
             _id: proj._id,
             no: no++,
             proj_name: proj.proj_name,
-            start_date: proj.start_date,
-            end_date: proj.end_date,
-            assigned_coordinator:proj.assigned_coordinator,
+            start_date: new Date (proj.start_date).toLocaleDateString(),
+            end_date: new Date (proj.end_date).toLocaleDateString(),
+            assigned_coordinator: proj.assigned_coordinator,
             action: ( <ProjectBtn Id={proj._id} /> ),
           }
         )
@@ -387,10 +387,13 @@ const ProjectList = () => {
             </Link>
           </div>
           <div className="mt-5">
-            <DataTable columns={columns} data={filteredProjects} pagination />
+            <DataTable columns={columns} 
+             data={filteredProjects} 
+             pagination />
           </div>
         </div>
       }
+      
     </>
   );
 };

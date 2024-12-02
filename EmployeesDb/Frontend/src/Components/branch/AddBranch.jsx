@@ -23,7 +23,7 @@ const AddBranch = () => {
   
       try {
         const response = await axios.post(
-         'https://mjemployeemanagment.onrender.com/api/branch/add',
+         'http://localhost:3000/api/branch/add',
           branch,
           {
             headers: {

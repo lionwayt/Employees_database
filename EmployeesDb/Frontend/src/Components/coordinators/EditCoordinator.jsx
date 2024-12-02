@@ -17,7 +17,7 @@ const EditCoordinator = () => {
           setCoLoading(true)
           try {
             const responnse =  await axios.get(
-              `https://mjemployeemanagment.onrender.com/api/coordinator/${id}`,
+              `http://localhost:3000/api/coordinator/${id}`,
                {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +58,7 @@ const EditCoordinator = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-              `https://mjemployeemanagment.onrender.com/api/coordinator/${id}`,
+              `http://localhost:3000/api/coordinator/${id}`,
               coordinator,
               {
                 headers: {

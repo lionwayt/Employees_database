@@ -4,20 +4,20 @@ import { useParams } from "react-router-dom";
 
 const View = () => {
   const {id} = useParams()
-  const [employee, setEmployee] = useState(null)
+  const [employee, setEmployee] = useState(null);
 
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
         const responnse = await axios.get(
-          `https://mjemployeemanagment.onrender.com/api/employee/${id}`,
+          `http://localhost:3000/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-
+   
         if (responnse.data.success) {
           setEmployee(responnse.data.employee);
         }
@@ -39,12 +39,11 @@ const View = () => {
             Employee Details
           </h3>
           <div className="bg-white shadow-md rounded-lg p-6 border-t-4 border-maryOrange">
-         
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <img
-                src={`https://mjemployeemanagment.onrender.com/${employee.userId.profileImage}`}
+                src={`http://localhost:3000/${employee.userId.profileImage}`}
                 alt=""
                 className="rounded-full border w-72"
               />

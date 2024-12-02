@@ -41,7 +41,7 @@ const Edit = () => {
        
       try {
         const responnse = await axios.get(
-         `https://mjemployeemanagment.onrender.com/api/employee/${id}`,
+         `http://localhost:3000/api/employee/${id}`,
          
           {
             headers: {
@@ -122,7 +122,7 @@ const Edit = () => {
        
       try {
         const response = await axios.put(
-        `https://mjemployeemanagment.onrender.com/${id}`,
+        `http://localhost:3000/${id}`,
         employee,
           
           {

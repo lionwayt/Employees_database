@@ -50,7 +50,6 @@ const getDepartment = async (req, res) => {
         const deleteDepartment = async (req, res) => {
             try{
                 const {id} = req.params;
-        
                 const deleteDep = await Department.findById({_id: id})
                 await deleteDep.deleteOne()
                 return res.status(200).json({success: true, deleteDep})

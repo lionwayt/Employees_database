@@ -25,7 +25,7 @@ export const columns = [
 
     {
       name: "Branch",
-      selector: (row) => row.branch_name,
+      selector: (row) => row.branch,
       
       width: "120px"
   },
@@ -79,7 +79,7 @@ export const fetchDepartments = async () => {
           
           try {
             const responnse =  await axios.get(
-              'https://mjemployeemanagment.onrender.com/api/branch',
+              'http://localhost:3000/api/branch',
               
                {
               headers: {
@@ -97,8 +97,32 @@ export const fetchDepartments = async () => {
         return branches
       }; 
 
+      export const getEmployees = async (id) => {
+        let employees;
+        try {
+          const responnse = await axios.get(
+            `http://localhost:3000/api/employee/department/${id}`,
+             {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+
+          }
+        );
+        console.log(responnse)
+          if (responnse.data.success){
+            employees = responnse.data.employees;
+          }
+        } catch (error) {
+          if (error.response && !error.response.data.success) {
+            alert(error.response.data.error);
+          }
+        }
+        return employees;
+      }
+
     // eslint-disable-next-line react/prop-types
-    export const EmployeeBtn = ({Id}) => {
+    export const EmployeeBtn = ({ Id }) => {
         const navigate = useNavigate();
     
        
@@ -116,7 +140,7 @@ export const fetchDepartments = async () => {
                 
                 
                 <button className="px-3 py-1 bg-red-600 text-white"
-                onClick={() => (Id)}
+                onClick={() => navigate(`/hr_dashboard/employees/leaves/${Id}`)}
                 >Leave
                 </button>
             </div>

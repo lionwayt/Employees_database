@@ -28,6 +28,8 @@ import ProjectList from "./Components/projects/ProjectList.jsx"
 import ListCoordinator from "./Components/coordinators/ListCoordinator.jsx";
 import AddCoordinator from "./Components/coordinators/AddCoordinator.jsx"
 import EditCoordinator from "./Components/coordinators/EditCoordinator.jsx";
+import Table from "./Components/Leave/Table.jsx";
+import Details from "./Components/Leave/Details.jsx";
 
 
 function App() {
@@ -63,7 +65,11 @@ function App() {
           <Route path="/hr_dashboard/add-employee" element={<Add />}> </Route>
           <Route path="/hr_dashboard/employees/:id" element={<View />}> </Route>
           <Route path="/hr_dashboard/employees/edit/:id" element={<Edit />}></Route>
-          <Route path="/hr_dashboard/leave" element={<LeaveList />}></Route>
+
+          <Route path="/hr_dashboard/employees/leaves/:id" element={<LeaveList />}></Route>
+          <Route path="/hr_dashboard/leaves" element={<Table />}></Route>
+          <Route path="/hr_dashboard/leaves/:id" element={<Details />}></Route>
+          
           <Route path="/hr_dashboard/setting" element={<HrSetting/>}></Route>
 
           <Route path="/hr_dashboard/projects"element={<ProjectList />}></Route>
@@ -86,31 +92,14 @@ function App() {
           }
         >
           <Route index element={<Summary />}></Route>
-          <Route
-            path="/employee_dashboard/profile/:id"
-            element={<View />}
-          ></Route>
-          <Route
-            path="/employee_dashboard/leave"
-            element={<LeaveList />}
-          ></Route>
-          <Route
-            path="/employee_dashboard/add-leave"
-            element={<Create />}
-          ></Route>
-          <Route path="/employee_dashboard/salary" element={<View />}></Route>
-          <Route
-            path="/employee_dashboard/setting"
-            element={<Setting />}
-          ></Route>
+          <Route path="/employee_dashboard/profile/:id" element={<View />} ></Route>
+          <Route path="/employee_dashboard/leaves/:id" element={<LeaveList />}></Route>
+          <Route path="/employee_dashboard/add-leave" element={<Create />}></Route>
+          <Route path="/employee_dashboard/setting" element={<Setting />}></Route>
         </Route>
 
-        <Route path="/project_coordinator" element={<ProjectCoordinator />}>
-          
-        </Route>
-        <Route path="/executive_director" element={<ExecutiveDirector />}>
-         
-        </Route>
+        <Route path="/project_coordinator" element={<ProjectCoordinator />}></Route>
+        <Route path="/executive_director" element={<ExecutiveDirector />}></Route>
       </Routes>
     </BrowserRouter>
   );

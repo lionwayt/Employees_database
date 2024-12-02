@@ -17,7 +17,7 @@ const EditDepartment = () => {
           setDepLoading(true)
           try {
             const responnse =  await axios.get(
-              `https://mjemployeemanagment.onrender.com/api/department/${id}`,
+              `http://localhost:3000/api/department/${id}`,
                {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +58,7 @@ const EditDepartment = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-              `https://mjemployeemanagment.onrender.com/api/department/${id}`,
+              `http://localhost:3000/api/department/${id}`,
               department,
               {
                 headers: {

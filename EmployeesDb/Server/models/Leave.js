@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 const leaveSchema = new Schema({
-    employeeId: { type: Schema.Types.ObjectId, ref: "Employee", required: true},
+    employeeId: { type: Schema.Types.ObjectId, ref: "Employee", required: true },
     leaveType: {
         type: String,
         enum: ["Sick Leave", "Casual Leave", "Annual Leave"],
@@ -21,4 +21,5 @@ const leaveSchema = new Schema({
 });
 
 const Leave = mongoose.model("Leave", leaveSchema);
+
 export default Leave;

@@ -5,7 +5,7 @@ import { useAuth } from '../Context/authContext.jsx';
 
 const Create = () => {
  const {user} = useAuth()
-    const [leave, setLeave]= useState({
+    const [leaves, setLeave]= useState({
         userId: user._id,
 
     })
@@ -22,8 +22,8 @@ const Create = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                `https://mjemployeemanagment.onrender.com/api/leave/add`, 
-                leave,
+                `http://localhost:3000/api/leave/add`, 
+                leaves,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -33,7 +33,7 @@ const Create = () => {
             );
 
             if (response.data.success){
-               navigate('/employee_dashboard/leave')
+               navigate(`/employee_dashboard/leaves/${user._id}`)
             }
         } catch (error){
             if(error.response && !error.response.data.success){
@@ -56,7 +56,7 @@ const Create = () => {
                      className='mt-1 p-2 block w-full border border-gray-300 rounded-md
                      required
                      '>
-                        <option value="">Select Department</option>
+                        <option value="">Select Leave Type</option>
                         <option value="Sick Leave">Sick Leave</option>
                         <option value="Casual Leave">Casual Leave</option>
                         <option value="Annual Leave">Annual Leave</option>
@@ -98,7 +98,8 @@ const Create = () => {
                      name="reason" 
                      placeholder='Reason'
                      onChange={handleChange} 
-                     className='w-full border border-gray-300'></textarea>
+                     className='w-full border border-gray-300' 
+                     required/>
                  </div>
 
             </div>
@@ -113,4 +114,4 @@ const Create = () => {
   )
 }
 
-export default Create
+export default Create;

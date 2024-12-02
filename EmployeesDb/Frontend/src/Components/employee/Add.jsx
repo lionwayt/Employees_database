@@ -50,7 +50,7 @@ const Add = () => {
   
       try {
         const response = await axios.post(
-          "https://mjemployeemanagment.onrender.com/api/employee/add",
+          "http://localhost:3000/api/employee/add",
            formDataObj,
           {
             headers: {
@@ -87,7 +87,7 @@ const Add = () => {
                 <input type="file" 
                 name='image'
                 placeholder='Upload Image'
-                onChange={handleInputChange}
+                onChange={handleInputChange} 
                 accept='image/*'
                 className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-maryOrange'
                 required/>

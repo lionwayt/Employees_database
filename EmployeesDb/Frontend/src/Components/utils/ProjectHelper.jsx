@@ -251,7 +251,7 @@ export const ProjectBtn = ({Id, onProjectDelete  }) => {
     try {
        
         const responnse =  await axios.delete(
-            `https://mjemployeemanagment.onrender.com/api/project/${id}`,
+            `http://localhost:3000/api/project/${id}`,
              {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
